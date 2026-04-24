@@ -1,0 +1,37 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "kairoz-ui",
+  "description": "Kairoz — a design system for AI and agent interfaces. 180+ framework-agnostic tokens, 50+ component classes, and multi-surface patterns. Agents absorb the system and generate code native to shadcn, Tailwind, React, Vue, or raw HTML.",
+  "owner": {
+    "name": "sujal7103",
+    "url": "https://github.com/sujal7103"
+  },
+  "plugins": [
+    {
+      "name": "kairoz",
+      "source": "./",
+      "description": "The Kairoz design language as a skill. 180+ tokens, 50+ .kairoz-* component classes, and 8 markdown reference docs covering tokens, components, theming, patterns, responsive behavior, motion, hard-won lessons, and ready-made examples. Agents internalize the system and produce code native to your stack.",
+      "version": "0.1.0",
+      "author": {
+        "name": "sujal7103",
+        "url": "https://github.com/sujal7103"
+      },
+      "license": "MIT",
+      "repository": "https://github.com/sujal7103/kairoz",
+      "keywords": [
+        "design-system",
+        "ui",
+        "css",
+        "tokens",
+        "components",
+        "dark-theme",
+        "amoled",
+        "agent-ui",
+        "ai",
+        "shadcn",
+        "tailwind"
+      ],
+      "category": "design"
+    }
+  ]
+}

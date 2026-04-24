@@ -1,0 +1,37 @@
+/* Shared styles for preview cards. 700x~150, no card title/frame. */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body {
+  background: #000;
+  color: #fff;
+  font-family: "Inter", -apple-system, system-ui, sans-serif;
+  font-size: 13px;
+  line-height: 1.45;
+  letter-spacing: -0.01em;
+  -webkit-font-smoothing: antialiased;
+  width: 700px;
+  overflow: hidden;
+}
+.wrap { padding: 20px 24px; }
+.row { display: flex; align-items: center; gap: 10px; }
+.stack { display: flex; flex-direction: column; }
+.grid { display: grid; }
+.mono { font-family: "JetBrains Mono", "SF Mono", monospace; font-size: 11px; }
+.label-upper { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: #aaa; }
+.cap { font-size: 10px; color: #777; }
+.ghost { color: #585858; }
+.sub { color: #aaa; font-size: 12px; }
+.border-d { border: 1px solid #1e1e1e; }
+
+.swatch {
+  border-radius: 4px;
+  border: 1px solid #1e1e1e;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 6px 8px;
+  gap: 1px;
+}
+.swatch .name { font-size: 10px; font-weight: 600; color: #fff; letter-spacing: -0.005em; }
+.swatch .hex { font-family: "JetBrains Mono", monospace; font-size: 9px; color: #777; }

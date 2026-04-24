@@ -1,0 +1,1395 @@
+/* ==========================================================================
+   Kairoz Design System
+   AMOLED black, monochromatic, compact. Based on the "Enterprise" Zed theme.
+   A generalized component library — drop this CSS in and compose.
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+:root {
+  /* ---------- Backgrounds ---------- */
+  --bg-base: #000000;
+  --bg-sidebar: #000000;
+  --bg-surface: #000000;
+  --bg-raised: #0f0f0f;
+  --bg-overlay: #0f0f0f;
+  --bg-input: #0a0a0a;
+  --bg-tab-active: #171717;
+  --bg-tab-inactive: transparent;
+  --bg-hover: rgba(255, 255, 255, 0.04);
+  --bg-selected: rgba(255, 255, 255, 0.06);
+  --bg-active: rgba(255, 255, 255, 0.08);
+  --bg-elevated: #0f0f0f;
+
+  /* ---------- Text ---------- */
+  --text-primary: #ffffff;
+  --text-secondary: #aaaaaa;
+  --text-tertiary: #777777;
+  --text-ghost: #333333;
+  --text-inverse: #000000;
+  --text-accent: #ffff00;
+  --text-muted: #585858;
+
+  /* ---------- Borders ---------- */
+  --border-default: #1e1e1e;
+  --border-subtle: #141414;
+  --border-strong: #3d3d3d;
+  --border-focus: #0070f3;
+  --border-variant: #141414;
+
+  /* ---------- Accent (Vercel-style: near-white primary, subtle blue highlight) ---------- */
+  --accent-primary: #ededed;        /* button / primary surface */
+  --accent-primary-hover: #ffffff;  /* hover brighter */
+  --accent-primary-muted: rgba(237, 237, 237, 0.06);
+  --accent-secondary: #a1a1a1;
+  --accent-highlight: #0070f3;      /* focus ring / links / selection — Vercel blue */
+  --accent-highlight-hover: #3291ff;
+  --accent-highlight-muted: rgba(0, 112, 243, 0.12);
+
+  /* ---------- Semantic / Status ---------- */
+  --status-success: #4d4d4d;
+  --status-success-muted: rgba(77, 77, 77, 0.12);
+  --status-warning: #CD9731;
+  --status-warning-muted: rgba(205, 151, 49, 0.12);
+  --status-error: #F44747;
+  --status-error-muted: rgba(244, 71, 71, 0.12);
+  --status-info: #6796E6;
+  --status-info-muted: rgba(103, 150, 230, 0.12);
+
+  /* ---------- shadcn aliases ---------- */
+  --background: var(--bg-base);
+  --foreground: var(--text-primary);
+  --card: var(--bg-raised);
+  --card-foreground: var(--text-primary);
+  --popover: var(--bg-overlay);
+  --popover-foreground: var(--text-primary);
+  --primary: var(--accent-primary);
+  --primary-foreground: var(--text-inverse);
+  --secondary: var(--bg-raised);
+  --secondary-foreground: var(--text-secondary);
+  --muted: #171717;
+  --muted-foreground: var(--text-muted);
+  --accent: #171717;
+  --accent-foreground: var(--text-primary);
+  --destructive: var(--status-error);
+  --destructive-foreground: #ffffff;
+  --border: var(--border-default);
+  --input: var(--border-default);
+  --ring: #0070f3;
+
+  /* ---------- Typography ---------- */
+  --font-ui: "Inter", -apple-system, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", "SF Mono", "Fira Code", ui-monospace, monospace;
+  --font-display: "Inter", -apple-system, system-ui, sans-serif;
+
+  --text-xxs: 10px;
+  --text-xs: 11px;
+  --text-sm: 12px;
+  --text-base: 13px;
+  --text-md: 14px;
+  --text-lg: 16px;
+  --text-xl: 20px;
+  --text-2xl: 28px;
+  --text-3xl: 44px;
+
+  /* ---------- Spacing (4px grid) ---------- */
+  --space-0: 0px;
+  --space-px: 1px;
+  --space-0h: 2px;
+  --space-1: 4px;
+  --space-1h: 6px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+
+  /* ---------- Radius ---------- */
+  --radius: 0.375rem;
+  --radius-sm: 3px;
+  --radius-md: 4px;
+  --radius-lg: 6px;
+  --radius-full: 9999px;
+
+  /* ---------- Shadows (overlays only) ---------- */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.6);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.8);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.9);
+  --shadow-overlay: 0 16px 48px rgba(0, 0, 0, 0.95);
+
+  /* ---------- Z-index ---------- */
+  --z-dropdown: 50;
+  --z-sticky: 60;
+  --z-overlay: 100;
+  --z-modal: 200;
+  --z-toast: 300;
+  --z-tooltip: 400;
+  --z-max: 9999;
+
+  /* ---------- Easing curves (native-feeling springs) ----------
+     Use these for overlay/modal transitions so they feel macOS-like, not instant.
+     --ease-spring       : slight overshoot, feels bouncy-native (scale/pop in)
+     --ease-out-expo     : dramatic exponential out, smooth overlay fade-in
+     --ease-apple        : Apple's spring-without-overshoot (drawers, sheets, sidebars)
+     --ease-standard     : material standard (subtle fades, content changes)
+     --ease-emphatic     : big accelerating-then-decelerating change (rare) */
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-apple: cubic-bezier(0.32, 0.72, 0, 1);
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-emphatic: cubic-bezier(0.2, 0, 0, 1);
+
+  /* Durations (pair these with the curves above) */
+  --dur-fast: 140ms;
+  --dur-base: 220ms;
+  --dur-slow: 320ms;
+  --dur-xslow: 420ms;
+
+  /* ---------- Component sizing ---------- */
+  --h-titlebar: 36px;
+  --h-tabbar: 34px;
+  --h-panel-header: 32px;
+  --h-statusbar: 28px;
+  --h-icon-button: 28px;
+  --h-row: 24px;
+  --h-input-sm: 20px;
+  --h-input: 24px;
+  --h-button: 28px;
+}
+
+/* ==========================================================================
+   Global base
+   ========================================================================== */
+* { box-sizing: border-box; }
+
+html, body {
+  background: var(--bg-base);
+  color: var(--text-primary);
+  font-family: var(--font-ui);
+  font-size: var(--text-base);
+  line-height: 1.45;
+  letter-spacing: -0.01em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  margin: 0;
+}
+
+/* Hide the horizontal scrollbar visually without disabling horizontal scroll.
+   Trackpad / wheel / touch scroll still work — the bar itself is the only thing hidden.
+   Vertical scrollbars remain visible (standard UX expectation for long pages). */
+*::-webkit-scrollbar:horizontal { height: 0; display: none; }
+
+/* ---------- Semantic type ---------- */
+h1, .h1 {
+  font-family: var(--font-display);
+  font-size: 44px;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
+}
+h2, .h2 {
+  font-family: var(--font-display);
+  font-size: 28px;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
+}
+h3, .h3 {
+  font-family: var(--font-ui);
+  font-size: 20px;
+  line-height: 1.25;
+  letter-spacing: -0.015em;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
+}
+h4, .h4 {
+  font-family: var(--font-ui);
+  font-size: 16px;
+  line-height: 1.3;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
+}
+p, .p {
+  font-size: var(--text-base);
+  line-height: 1.55;
+  color: var(--text-secondary);
+  margin: 0;
+}
+small, .small {
+  font-size: var(--text-xs);
+  color: var(--text-tertiary);
+}
+code, .code, pre, kbd {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--text-primary);
+}
+.label-upper {
+  font-size: var(--text-xs);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-secondary);
+}
+.caption {
+  font-size: var(--text-xxs);
+  color: var(--text-tertiary);
+}
+.mono { font-family: var(--font-mono); }
+
+/* ==========================================================================
+   Component primitives — .kairoz-* prefix
+   ========================================================================== */
+
+/* ---------- Buttons ---------- */
+.kairoz-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-1h);
+  height: var(--h-button);
+  padding: 0 var(--space-3);
+  border-radius: var(--radius-md);
+  border: 1px solid transparent;
+  font-family: inherit;
+  font-size: var(--text-sm);
+  font-weight: 500;
+  letter-spacing: -0.005em;
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+}
+.kairoz-btn-primary {
+  background: var(--accent-primary);
+  color: var(--text-inverse);
+}
+.kairoz-btn-primary:hover { background: var(--accent-primary-hover); }
+.kairoz-btn-secondary {
+  background: var(--bg-raised);
+  color: var(--text-primary);
+  border-color: var(--border-default);
+}
+.kairoz-btn-secondary:hover { background: var(--bg-tab-active); }
+.kairoz-btn-ghost {
+  background: transparent;
+  color: var(--text-secondary);
+}
+.kairoz-btn-ghost:hover { background: var(--bg-hover); color: var(--text-primary); }
+.kairoz-btn-destructive {
+  background: var(--status-error-muted);
+  color: var(--status-error);
+  border-color: rgba(244, 71, 71, 0.25);
+}
+.kairoz-btn-destructive:hover { background: rgba(244, 71, 71, 0.18); }
+.kairoz-btn-sm { height: 22px; padding: 0 var(--space-2); font-size: var(--text-xs); }
+.kairoz-btn-lg { height: 36px; padding: 0 var(--space-4); font-size: var(--text-base); }
+.kairoz-btn-icon {
+  width: var(--h-icon-button);
+  height: var(--h-icon-button);
+  padding: 0;
+  color: var(--text-tertiary);
+  background: transparent;
+  border: none;
+}
+.kairoz-btn-icon:hover { background: var(--bg-hover); color: var(--text-secondary); }
+
+/* ---------- Inputs ---------- */
+.kairoz-input {
+  height: var(--h-input);
+  background: var(--bg-input);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-md);
+  padding: 0 var(--space-2);
+  color: var(--text-primary);
+  font-family: inherit;
+  font-size: var(--text-sm);
+  outline: none;
+  width: 100%;
+}
+.kairoz-input::placeholder { color: var(--text-tertiary); }
+.kairoz-input:focus { border-color: var(--border-focus); }
+.kairoz-input-sm { height: var(--h-input-sm); font-size: var(--text-xs); }
+
+/* ---------- Cards & Panels ---------- */
+.kairoz-card {
+  background: var(--bg-raised);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+.kairoz-card-header {
+  height: var(--h-panel-header);
+  padding: 0 var(--space-3);
+  display: flex;
+  align-items: center;
+  gap: var(--space-1h);
+  border-bottom: 1px solid var(--border-subtle);
+}
+.kairoz-card-body { padding: var(--space-2) var(--space-3); }
+
+.kairoz-panel-header {
+  height: var(--h-panel-header);
+  padding: 0 var(--space-3);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border-default);
+  flex-shrink: 0;
+}
+.kairoz-panel-title {
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: var(--text-secondary);
+  letter-spacing: 0.02em;
+}
+
+/* ---------- Tabs ---------- */
+.kairoz-tabbar {
+  height: var(--h-tabbar);
+  display: flex;
+  align-items: stretch;
+  border-bottom: 1px solid var(--border-default);
+  background: var(--bg-base);
+  overflow-x: auto;
+  flex-shrink: 0;
+}
+.kairoz-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1h);
+  padding: 0 var(--space-3);
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: var(--text-tertiary);
+  font: 500 var(--text-sm) var(--font-ui);
+  cursor: pointer;
+  white-space: nowrap;
+}
+.kairoz-tab:hover { color: var(--text-secondary); background: var(--bg-hover); }
+.kairoz-tab.is-active {
+  color: var(--text-primary);
+  background: var(--bg-tab-active);
+  border-bottom-color: var(--accent-primary);
+}
+
+/* ---------- List items ---------- */
+.kairoz-list { display: flex; flex-direction: column; }
+.kairoz-list-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1h);
+  padding: var(--space-1) var(--space-2);
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+  border-left: 2px solid transparent;
+  cursor: pointer;
+}
+.kairoz-list-item:hover { background: var(--bg-hover); color: var(--text-primary); }
+.kairoz-list-item.is-selected {
+  background: var(--bg-selected);
+  color: var(--text-primary);
+  border-left-color: var(--accent-primary);
+}
+
+/* ---------- Badges ---------- */
+.kairoz-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-size: var(--text-xxs);
+  padding: 2px var(--space-1h);
+  border-radius: var(--radius-sm);
+  background: var(--bg-raised);
+  border: 1px solid var(--border-default);
+  color: var(--text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 600;
+  line-height: 1.4;
+}
+.kairoz-badge-primary { color: var(--text-primary); background: var(--bg-active); border-color: var(--border-strong); }
+.kairoz-badge-warning { color: var(--status-warning); background: var(--status-warning-muted); border-color: rgba(205,151,49,0.25); }
+.kairoz-badge-error { color: var(--status-error); background: var(--status-error-muted); border-color: rgba(244,71,71,0.25); }
+.kairoz-badge-info { color: var(--status-info); background: var(--status-info-muted); border-color: rgba(103,150,230,0.25); }
+.kairoz-badge-success { color: var(--text-secondary); background: var(--status-success-muted); border-color: rgba(77,77,77,0.3); }
+
+.kairoz-pill {
+  display: inline-flex;
+  align-items: center;
+  font-size: var(--text-xxs);
+  padding: 2px var(--space-2);
+  border-radius: var(--radius-full);
+  background: var(--bg-raised);
+  border: 1px solid var(--border-default);
+  color: var(--text-secondary);
+  line-height: 1.4;
+  white-space: nowrap;
+}
+.kairoz-pill-active { color: var(--text-primary); background: var(--bg-active); border-color: var(--border-strong); }
+
+.kairoz-kbd {
+  font-family: var(--font-mono);
+  font-size: var(--text-xxs);
+  padding: 1px var(--space-1h);
+  border-radius: var(--radius-sm);
+  background: var(--bg-raised);
+  border: 1px solid var(--border-default);
+  color: var(--text-secondary);
+}
+
+/* ---------- Status / Dirty indicator ---------- */
+.kairoz-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: var(--radius-full);
+  display: inline-block;
+  flex-shrink: 0;
+}
+.kairoz-dot-primary { background: var(--accent-primary); }
+.kairoz-dot-success { background: var(--status-success); }
+.kairoz-dot-warning { background: var(--status-warning); }
+.kairoz-dot-error { background: var(--status-error); }
+.kairoz-dot-info { background: var(--status-info); }
+
+/* ---------- Title / Status bars ---------- */
+.kairoz-titlebar {
+  height: var(--h-titlebar);
+  padding: 0 var(--space-3);
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  background: var(--bg-base);
+  border-bottom: 1px solid var(--border-default);
+  user-select: none;
+  flex-shrink: 0;
+}
+.kairoz-statusbar {
+  height: var(--h-statusbar);
+  padding: 0 var(--space-3);
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  background: var(--bg-base);
+  border-top: 1px solid var(--border-default);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  flex-shrink: 0;
+}
+
+/* ---------- Dropdown / Popover ---------- */
+.kairoz-popover {
+  background: var(--bg-overlay);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  padding: var(--space-1) 0;
+  min-width: 180px;
+}
+.kairoz-menu-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  width: 100%;
+  padding: 0 var(--space-3);
+  height: 30px;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  text-align: left;
+  font-family: inherit;
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: background-color 120ms ease, color 120ms ease;
+}
+.kairoz-menu-item:hover { background: var(--bg-tab-active); color: var(--text-primary); }
+.kairoz-menu-separator { height: 1px; background: var(--border-default); margin: var(--space-1) 0; }
+
+/* ---------- Checkbox / Radio ---------- */
+.kairoz-check { accent-color: var(--accent-primary); }
+
+/* ---------- Progress ---------- */
+.kairoz-progress {
+  height: 4px;
+  background: var(--bg-input);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+.kairoz-progress-bar {
+  height: 100%;
+  background: var(--accent-primary);
+  border-radius: var(--radius-full);
+}
+
+/* ---------- Toggle switch ---------- */
+.kairoz-switch {
+  width: 28px;
+  height: 16px;
+  background: var(--bg-raised);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-full);
+  position: relative;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.kairoz-switch::after {
+  content: '';
+  position: absolute;
+  top: 1px;
+  left: 1px;
+  width: 12px;
+  height: 12px;
+  border-radius: var(--radius-full);
+  background: var(--text-tertiary);
+  transition: transform 120ms ease-out, background 120ms ease-out;
+}
+.kairoz-switch.is-on { background: var(--accent-primary); border-color: var(--accent-primary); }
+.kairoz-switch.is-on::after { transform: translateX(12px); background: var(--text-inverse); }
+
+/* ---------- Avatar ---------- */
+.kairoz-avatar {
+  width: 24px;
+  height: 24px;
+  border-radius: var(--radius-full);
+  background: var(--bg-raised);
+  border: 1px solid var(--border-default);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: var(--text-xxs);
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+/* ---------- Divider ---------- */
+.kairoz-divider { height: 1px; background: var(--border-default); border: 0; margin: 0; }
+.kairoz-divider-v { width: 1px; background: var(--border-default); align-self: stretch; }
+
+/* ==========================================================================
+   Scrollbar, focus, transitions
+   ========================================================================== */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.08); border-radius: 9999px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.14); }
+.hide-scrollbar { scrollbar-width: none; }
+.hide-scrollbar::-webkit-scrollbar { display: none; }
+
+button, a, select { transition: background-color 120ms ease-out; }
+
+*:focus-visible {
+  outline: 1px solid var(--border-focus);
+  outline-offset: 1px;
+}
+
+/* ==========================================================================
+   Light mode — [data-theme="light"] on <html> or <body>
+   Also honors .light class so shadcn toggles work interchangeably.
+   Dark is the default; these overrides invert surfaces and text while keeping
+   the compact, border-defined aesthetic and the blue highlight.
+   ========================================================================== */
+[data-theme="light"],
+.light {
+  /* Backgrounds — paper white → subtle gray stack */
+  --bg-base: #ffffff;
+  --bg-sidebar: #ffffff;
+  --bg-surface: #ffffff;
+  --bg-raised: #fafafa;
+  --bg-overlay: #ffffff;
+  --bg-input: #ffffff;
+  --bg-tab-active: #f4f4f5;
+  --bg-tab-inactive: transparent;
+  --bg-hover: rgba(0, 0, 0, 0.04);
+  --bg-selected: rgba(0, 112, 243, 0.06);
+  --bg-active: rgba(0, 0, 0, 0.06);
+  --bg-elevated: #fafafa;
+
+  /* Text — inverted ramp */
+  --text-primary: #0a0a0a;
+  --text-secondary: #52525b;
+  --text-tertiary: #71717a;
+  --text-ghost: #d4d4d8;
+  --text-inverse: #ffffff;
+  --text-accent: #b45309;   /* amber in place of unreadable yellow */
+  --text-muted: #a1a1aa;
+
+  /* Borders */
+  --border-default: #e4e4e7;
+  --border-subtle: #f4f4f5;
+  --border-strong: #d4d4d8;
+  --border-focus: #0070f3;
+  --border-variant: #f4f4f5;
+
+  /* Accent — primary is near-black so it reads on white; blue highlight stays */
+  --accent-primary: #0a0a0a;
+  --accent-primary-hover: #27272a;
+  --accent-primary-muted: rgba(10, 10, 10, 0.06);
+  --accent-secondary: #71717a;
+  --accent-highlight: #0070f3;
+  --accent-highlight-hover: #0761d1;
+  --accent-highlight-muted: rgba(0, 112, 243, 0.10);
+
+  /* Status — unchanged palette but adjusted tints on white */
+  --status-success: #166534;
+  --status-success-muted: rgba(22, 101, 52, 0.08);
+  --status-warning: #b45309;
+  --status-warning-muted: rgba(180, 83, 9, 0.10);
+  --status-error: #dc2626;
+  --status-error-muted: rgba(220, 38, 38, 0.08);
+  --status-info: #0070f3;
+  --status-info-muted: rgba(0, 112, 243, 0.08);
+
+  /* shadcn aliases remap for light */
+  --background: var(--bg-base);
+  --foreground: var(--text-primary);
+  --card: var(--bg-base);
+  --card-foreground: var(--text-primary);
+  --popover: var(--bg-overlay);
+  --popover-foreground: var(--text-primary);
+  --primary: var(--accent-primary);
+  --primary-foreground: var(--text-inverse);
+  --secondary: var(--bg-raised);
+  --secondary-foreground: var(--text-primary);
+  --muted: #f4f4f5;
+  --muted-foreground: var(--text-tertiary);
+  --accent: #f4f4f5;
+  --accent-foreground: var(--text-primary);
+  --destructive: var(--status-error);
+  --destructive-foreground: #ffffff;
+  --border: var(--border-default);
+  --input: var(--border-default);
+  --ring: #0070f3;
+
+  /* Shadows — softened for light mode (dark-mode values are far too heavy on white) */
+  --shadow-sm: 0 1px 2px rgba(17, 17, 17, 0.06);
+  --shadow-md: 0 4px 12px rgba(17, 17, 17, 0.08);
+  --shadow-lg: 0 8px 24px rgba(17, 17, 17, 0.10);
+  --shadow-overlay: 0 16px 48px rgba(17, 17, 17, 0.14);
+}
+
+/* Light-mode tweaks for pieces that hardcode hex values or white-on-dark */
+[data-theme="light"] ::-webkit-scrollbar-thumb,
+.light ::-webkit-scrollbar-thumb { background: rgba(0, 0, 0, 0.12); }
+[data-theme="light"] ::-webkit-scrollbar-thumb:hover,
+.light ::-webkit-scrollbar-thumb:hover { background: rgba(0, 0, 0, 0.22); }
+[data-theme="light"] ::selection,
+.light ::selection { background: rgba(0, 112, 243, 0.22); color: var(--text-primary); }
+
+/* Skeleton shimmer — light ramp */
+[data-theme="light"] .kairoz-skeleton,
+.light .kairoz-skeleton {
+  background: linear-gradient(90deg, #f4f4f5 0%, #e4e4e7 50%, #f4f4f5 100%);
+  background-size: 200% 100%;
+}
+
+/* Tooltip light variant — invert to dark on light */
+[data-theme="light"] .kairoz-tooltip,
+.light .kairoz-tooltip { background: #0a0a0a; color: #fff; }
+[data-theme="light"] .kairoz-tooltip-dark,
+.light .kairoz-tooltip-dark { background: #fff; color: #0a0a0a; border-color: var(--border-default); }
+
+/* Slider thumb — in light mode the white-on-white disappears, use accent */
+[data-theme="light"] .kairoz-slider-thumb,
+.light .kairoz-slider-thumb { background: #fff; border-color: var(--border-strong); }
+
+/* Avatar group ring — on light bg, overlap ring should be white */
+[data-theme="light"] .kairoz-avatar-group .kairoz-avatar + .kairoz-avatar,
+.light .kairoz-avatar-group .kairoz-avatar + .kairoz-avatar { box-shadow: 0 0 0 2px #fff; }
+
+/* Titlebar/statusbar keep the base bg, which inverts automatically — no extra rule needed */
+
+/* Status dots in light mode — use saturated status hues for success/warning */
+[data-theme="light"] .kairoz-dot-success,
+.light .kairoz-dot-success { background: #22c55e; }
+
+/* Segmented active chip — on light, use white with border */
+[data-theme="light"] .kairoz-segmented-item.is-active,
+.light .kairoz-segmented-item.is-active { background: #fff; color: var(--text-primary); box-shadow: 0 0 0 1px var(--border-default); }
+
+/* Dialog footer — raised bg is now near-white, keep subtle contrast */
+[data-theme="light"] .kairoz-dialog-footer,
+.light .kairoz-dialog-footer { background: var(--bg-raised); }
+
+/* Command item hover — tab-active is now #f4f4f5 which is correct */
+
+/* Switch on-state thumb */
+[data-theme="light"] .kairoz-switch.is-on::after,
+.light .kairoz-switch.is-on::after { background: #fff; }
+
+/* ---------- Link ---------- */
+.kairoz-link { color: var(--accent-highlight); text-decoration: none; text-underline-offset: 2px; cursor: pointer; }
+.kairoz-link:hover { color: var(--accent-highlight-hover); text-decoration: underline; }
+
+/* ---------- Selection ---------- */
+::selection { background: rgba(0, 112, 243, 0.42); color: #fff; }
+
+/* ---------- Alert ---------- */
+.kairoz-alert {
+  display: flex; gap: var(--space-2); align-items: flex-start;
+  padding: var(--space-3);
+  background: var(--bg-raised);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-lg);
+  color: var(--text-secondary);
+  font-size: var(--text-sm);
+}
+.kairoz-alert-title { color: var(--text-primary); font-weight: 600; font-size: var(--text-sm); margin-bottom: 2px; }
+.kairoz-alert-desc { color: var(--text-tertiary); font-size: var(--text-xs); line-height: 1.5; }
+.kairoz-alert-icon { flex-shrink: 0; margin-top: 1px; color: var(--text-tertiary); }
+.kairoz-alert-info { border-color: rgba(0, 112, 243, 0.25); background: var(--accent-highlight-muted); }
+.kairoz-alert-info .kairoz-alert-title, .kairoz-alert-info .kairoz-alert-icon { color: var(--accent-highlight); }
+.kairoz-alert-warning { border-color: rgba(205,151,49,0.25); background: var(--status-warning-muted); }
+.kairoz-alert-warning .kairoz-alert-title, .kairoz-alert-warning .kairoz-alert-icon { color: var(--status-warning); }
+.kairoz-alert-error { border-color: rgba(244,71,71,0.25); background: var(--status-error-muted); }
+.kairoz-alert-error .kairoz-alert-title, .kairoz-alert-error .kairoz-alert-icon { color: var(--status-error); }
+
+/* ---------- Toast ---------- */
+.kairoz-toast {
+  display: flex; gap: var(--space-2); align-items: center;
+  min-width: 280px; max-width: 380px;
+  padding: var(--space-2) var(--space-3);
+  background: var(--bg-overlay);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  font-size: var(--text-sm);
+  color: var(--text-primary);
+}
+.kairoz-toast-desc { color: var(--text-tertiary); font-size: var(--text-xs); }
+.kairoz-toast-close {
+  margin-left: auto;
+  width: 18px;
+  height: 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 1px solid var(--border-default);
+  border-radius: 50%;
+  color: var(--text-tertiary);
+  font-family: inherit;
+  font-size: 12px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0;
+  transition: background-color 120ms ease, color 120ms ease, border-color 120ms ease;
+}
+.kairoz-toast-close:hover {
+  background: var(--bg-hover);
+  color: var(--text-primary);
+  border-color: var(--border-strong);
+}
+
+/* ---------- Tooltip ---------- */
+.kairoz-tooltip {
+  display: inline-block;
+  padding: 4px var(--space-2);
+  background: #ededed;
+  color: #000;
+  border-radius: var(--radius-md);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  box-shadow: var(--shadow-md);
+  white-space: nowrap;
+}
+.kairoz-tooltip-dark {
+  background: var(--bg-raised);
+  border: 1px solid var(--border-default);
+  color: var(--text-primary);
+}
+
+/* ---------- Dialog / Sheet ---------- */
+.kairoz-dialog-backdrop { background: rgba(0,0,0,0.7); position: fixed; inset: 0; }
+.kairoz-dialog {
+  background: var(--bg-overlay);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-overlay);
+  width: 100%; max-width: 480px;
+  overflow: hidden;
+}
+.kairoz-dialog-header { padding: var(--space-4) var(--space-4) var(--space-2); }
+.kairoz-dialog-title { font-size: var(--text-md); font-weight: 600; color: var(--text-primary); margin-bottom: 4px; }
+.kairoz-dialog-desc { font-size: var(--text-sm); color: var(--text-tertiary); line-height: 1.5; }
+.kairoz-dialog-body { padding: var(--space-2) var(--space-4); }
+.kairoz-dialog-footer {
+  display: flex; gap: var(--space-2); justify-content: flex-end;
+  padding: var(--space-3) var(--space-4);
+  border-top: 1px solid var(--border-subtle);
+  background: var(--bg-raised);
+}
+
+/* ---------- Command palette ---------- */
+.kairoz-command {
+  background: var(--bg-overlay);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-overlay);
+  width: 100%; max-width: 560px;
+  overflow: hidden;
+}
+.kairoz-command-input-wrap {
+  display: flex; align-items: center; gap: var(--space-2);
+  padding: 0 var(--space-3); height: 40px;
+  border-bottom: 1px solid var(--border-subtle);
+  color: var(--text-tertiary);
+}
+.kairoz-command-input {
+  flex: 1; background: transparent; border: 0; outline: 0;
+  color: var(--text-primary); font-size: var(--text-base); font-family: inherit;
+}
+.kairoz-command-input::placeholder { color: var(--text-tertiary); }
+.kairoz-command-group-label {
+  padding: var(--space-2) var(--space-3) 4px;
+  font-size: var(--text-xxs); font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.08em;
+  color: var(--text-muted);
+}
+.kairoz-command-item {
+  display: flex; align-items: center; gap: var(--space-2);
+  width: 100%; padding: 0 var(--space-3); height: 32px;
+  background: transparent; border: 0; border-radius: 0;
+  text-align: left; font-family: inherit;
+  font-size: var(--text-sm); color: var(--text-secondary);
+  cursor: pointer; transition: background-color 120ms ease, color 120ms ease;
+}
+.kairoz-command-item:hover, .kairoz-command-item.is-active {
+  background: var(--bg-tab-active); color: var(--text-primary);
+}
+.kairoz-command-item-shortcut { margin-left: auto; color: var(--text-tertiary); font-size: var(--text-xxs); }
+
+/* ---------- Accordion ---------- */
+.kairoz-accordion { border: 1px solid var(--border-default); border-radius: var(--radius-lg); overflow: hidden; background: var(--bg-raised); }
+.kairoz-accordion-item + .kairoz-accordion-item { border-top: 1px solid var(--border-subtle); }
+.kairoz-accordion-trigger {
+  width: 100%; display: flex; align-items: center; justify-content: space-between;
+  padding: var(--space-3); background: transparent; border: 0;
+  color: var(--text-primary); font: 500 var(--text-sm) var(--font-ui); cursor: pointer;
+  text-align: left;
+}
+.kairoz-accordion-trigger:hover { background: var(--bg-hover); }
+.kairoz-accordion-chev { color: var(--text-tertiary); transition: transform 150ms ease-out; }
+.kairoz-accordion-item.is-open .kairoz-accordion-chev { transform: rotate(90deg); }
+.kairoz-accordion-content { padding: 0 var(--space-3) var(--space-3); color: var(--text-secondary); font-size: var(--text-sm); line-height: 1.55; }
+
+/* ---------- Breadcrumb ---------- */
+.kairoz-breadcrumb { display: flex; align-items: center; gap: var(--space-1h); font-size: var(--text-sm); color: var(--text-tertiary); }
+.kairoz-breadcrumb a { color: var(--text-tertiary); text-decoration: none; }
+.kairoz-breadcrumb a:hover { color: var(--text-primary); }
+.kairoz-breadcrumb-sep { color: var(--text-ghost); }
+.kairoz-breadcrumb-current { color: var(--text-primary); }
+
+/* ---------- Pagination ---------- */
+.kairoz-pagination { display: flex; align-items: center; gap: 2px; }
+.kairoz-pagination-item {
+  min-width: 28px; height: 28px; padding: 0 var(--space-2);
+  display: inline-flex; align-items: center; justify-content: center;
+  font: 500 var(--text-sm) var(--font-ui);
+  color: var(--text-secondary);
+  background: transparent; border: 1px solid transparent;
+  border-radius: var(--radius-md); cursor: pointer;
+}
+.kairoz-pagination-item:hover { background: var(--bg-hover); color: var(--text-primary); }
+.kairoz-pagination-item.is-active {
+  background: var(--bg-raised); border-color: var(--border-default); color: var(--text-primary);
+}
+.kairoz-pagination-ellipsis { color: var(--text-muted); padding: 0 4px; }
+
+/* ---------- Skeleton ---------- */
+.kairoz-skeleton {
+  background: linear-gradient(90deg, #0a0a0a 0%, #171717 50%, #0a0a0a 100%);
+  background-size: 200% 100%;
+  animation: kairoz-shimmer 1.6s linear infinite;
+  border-radius: var(--radius-md);
+}
+@keyframes kairoz-shimmer { to { background-position: -200% 0; } }
+
+/* ---------- Slider ---------- */
+.kairoz-slider {
+  position: relative; height: 16px; width: 100%;
+  display: flex; align-items: center;
+}
+.kairoz-slider-track {
+  width: 100%; height: 4px;
+  background: var(--bg-raised); border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-full); overflow: hidden;
+}
+.kairoz-slider-range {
+  height: 100%; background: var(--accent-primary); border-radius: var(--radius-full);
+}
+.kairoz-slider-thumb {
+  position: absolute; top: 50%;
+  width: 14px; height: 14px; border-radius: var(--radius-full);
+  background: #fff; border: 1px solid var(--border-strong);
+  transform: translate(-50%, -50%);
+  box-shadow: var(--shadow-sm); cursor: grab;
+}
+
+/* ---------- Segmented control / Toggle group ---------- */
+.kairoz-segmented {
+  display: inline-flex; padding: 2px; gap: 2px;
+  background: var(--bg-raised);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-md);
+}
+.kairoz-segmented-item {
+  height: 22px; padding: 0 var(--space-2);
+  display: inline-flex; align-items: center; gap: 4px;
+  background: transparent; border: 0;
+  font: 500 var(--text-xs) var(--font-ui); color: var(--text-tertiary);
+  border-radius: var(--radius-sm); cursor: pointer;
+}
+.kairoz-segmented-item:hover { color: var(--text-secondary); }
+.kairoz-segmented-item.is-active { background: #171717; color: var(--text-primary); box-shadow: 0 0 0 1px var(--border-default); }
+
+.kairoz-toggle {
+  height: 28px; padding: 0 var(--space-2);
+  display: inline-flex; align-items: center; gap: 4px;
+  background: transparent; border: 1px solid transparent;
+  font: 500 var(--text-sm) var(--font-ui); color: var(--text-tertiary);
+  border-radius: var(--radius-md); cursor: pointer;
+}
+.kairoz-toggle:hover { background: var(--bg-hover); color: var(--text-primary); }
+.kairoz-toggle.is-on { background: var(--bg-raised); border-color: var(--border-default); color: var(--text-primary); }
+
+/* ---------- Table ---------- */
+.kairoz-table { width: 100%; border-collapse: collapse; font-size: var(--text-sm); }
+.kairoz-table thead th {
+  padding: var(--space-2) var(--space-3);
+  text-align: left; font-weight: 600;
+  font-size: var(--text-xxs); text-transform: uppercase; letter-spacing: 0.08em;
+  color: var(--text-muted);
+  background: var(--bg-base);
+  border-bottom: 1px solid var(--border-default);
+  position: sticky; top: 0;
+}
+.kairoz-table tbody td {
+  padding: var(--space-2) var(--space-3);
+  color: var(--text-secondary);
+  border-bottom: 1px solid var(--border-subtle);
+}
+.kairoz-table tbody tr:hover td { background: var(--bg-hover); color: var(--text-primary); }
+.kairoz-table .num { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+
+/* ---------- Empty state ---------- */
+.kairoz-empty {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  padding: var(--space-8) var(--space-4);
+  text-align: center; color: var(--text-tertiary);
+  border: 1px dashed var(--border-default);
+  border-radius: var(--radius-lg);
+  background: var(--bg-raised);
+}
+.kairoz-empty-icon { color: var(--text-muted); margin-bottom: var(--space-3); }
+.kairoz-empty-title { color: var(--text-primary); font-weight: 600; font-size: var(--text-base); margin-bottom: 4px; }
+.kairoz-empty-desc { font-size: var(--text-sm); color: var(--text-tertiary); max-width: 320px; line-height: 1.5; }
+
+/* ---------- Stepper ---------- */
+.kairoz-stepper { display: flex; align-items: center; gap: var(--space-2); }
+.kairoz-stepper-step { display: flex; align-items: center; gap: var(--space-2); }
+.kairoz-stepper-dot {
+  width: 20px; height: 20px; border-radius: var(--radius-full);
+  display: inline-flex; align-items: center; justify-content: center;
+  font: 600 var(--text-xxs) var(--font-mono);
+  background: var(--bg-raised); border: 1px solid var(--border-default);
+  color: var(--text-tertiary);
+}
+.kairoz-stepper-step.is-active .kairoz-stepper-dot { background: var(--accent-highlight); border-color: var(--accent-highlight); color: #fff; }
+.kairoz-stepper-step.is-done .kairoz-stepper-dot { background: var(--bg-raised); border-color: var(--accent-highlight); color: var(--accent-highlight); }
+.kairoz-stepper-label { font-size: var(--text-sm); color: var(--text-tertiary); }
+.kairoz-stepper-step.is-active .kairoz-stepper-label,
+.kairoz-stepper-step.is-done .kairoz-stepper-label { color: var(--text-primary); }
+.kairoz-stepper-sep { flex: 1; height: 1px; background: var(--border-default); min-width: 20px; }
+
+/* ---------- Hover card / stat ---------- */
+.kairoz-stat {
+  padding: var(--space-3);
+  background: var(--bg-raised);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-lg);
+}
+.kairoz-stat-label { font-size: var(--text-xxs); text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); font-weight: 600; }
+.kairoz-stat-value { font-size: var(--text-2xl); font-weight: 600; color: var(--text-primary); letter-spacing: -0.02em; margin-top: 4px; font-variant-numeric: tabular-nums; }
+.kairoz-stat-delta { font-size: var(--text-xs); color: var(--text-tertiary); margin-top: 2px; font-family: var(--font-mono); }
+.kairoz-stat-delta.is-up { color: #50e3c2; }
+.kairoz-stat-delta.is-down { color: var(--status-error); }
+
+/* ---------- Checkbox / Radio custom ---------- */
+.kairoz-checkbox {
+  width: 14px; height: 14px; flex-shrink: 0;
+  background: var(--bg-input);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  display: inline-flex; align-items: center; justify-content: center;
+  color: transparent;
+  cursor: pointer;
+}
+.kairoz-checkbox.is-checked {
+  background: var(--accent-highlight); border-color: var(--accent-highlight); color: #fff;
+}
+.kairoz-radio {
+  width: 14px; height: 14px; flex-shrink: 0;
+  background: var(--bg-input);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-full);
+  display: inline-flex; align-items: center; justify-content: center;
+  cursor: pointer;
+}
+.kairoz-radio.is-checked { border-color: var(--accent-highlight); }
+.kairoz-radio.is-checked::after {
+  content: ''; width: 6px; height: 6px; border-radius: var(--radius-full);
+  background: var(--accent-highlight);
+}
+
+/* ---------- Avatar group ---------- */
+.kairoz-avatar-group { display: inline-flex; }
+.kairoz-avatar-group .kairoz-avatar + .kairoz-avatar { margin-left: -6px; box-shadow: 0 0 0 2px #000; }
+
+/* ==========================================================================
+   v0.2 extensions — alive / application-native / multi-surface
+   Additive only. Nothing above this line is modified.
+   ========================================================================== */
+
+/* ---------- Pill buttons (monochromatic, fully rounded) ---------- */
+.kairoz-btn-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-1h);
+  height: var(--h-button);
+  padding: 0 var(--space-4);
+  border-radius: 9999px;
+  border: 1px solid transparent;
+  font: 500 var(--text-sm) var(--font-ui);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background-color 120ms ease, border-color 120ms ease, filter 120ms ease, transform 120ms ease;
+}
+.kairoz-btn-pill:active { transform: scale(0.985); }
+.kairoz-btn-pill:focus-visible { outline: 2px solid var(--accent-highlight); outline-offset: 2px; }
+.kairoz-btn-pill.kairoz-btn-pill-primary {
+  background: var(--accent-primary);
+  color: var(--text-inverse);
+}
+.kairoz-btn-pill.kairoz-btn-pill-primary:hover { filter: brightness(0.92); }
+.kairoz-btn-pill.kairoz-btn-pill-secondary {
+  background: var(--bg-raised);
+  color: var(--text-primary);
+  border-color: var(--border-default);
+}
+.kairoz-btn-pill.kairoz-btn-pill-secondary:hover { background: var(--bg-elevated); border-color: var(--border-strong); }
+.kairoz-btn-pill.kairoz-btn-pill-ghost {
+  background: transparent;
+  color: var(--text-secondary);
+}
+.kairoz-btn-pill.kairoz-btn-pill-ghost:hover { background: var(--bg-hover); color: var(--text-primary); }
+.kairoz-btn-pill.kairoz-btn-pill-sm { height: 24px; padding: 0 var(--space-3); font-size: var(--text-xs); }
+.kairoz-btn-pill.kairoz-btn-pill-lg { height: 36px; padding: 0 var(--space-5); font-size: var(--text-md); }
+
+/* ---------- Dashed dividers ---------- */
+.kairoz-divider-dashed {
+  width: 100%;
+  height: 0;
+  margin: var(--space-4) 0;
+  border: 0;
+  border-top: 1px dashed var(--border-default);
+}
+.kairoz-divider-v-dashed {
+  display: inline-block;
+  width: 0;
+  height: 100%;
+  align-self: stretch;
+  border-left: 1px dashed var(--border-default);
+}
+
+/* ---------- Marquee (infinite scroll) ---------- */
+.kairoz-marquee {
+  display: flex;
+  overflow: hidden;
+  gap: var(--space-8);
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+.kairoz-marquee:hover .kairoz-marquee-track { animation-play-state: paused; }
+.kairoz-marquee-track {
+  display: flex;
+  gap: var(--space-8);
+  flex-shrink: 0;
+  min-width: 100%;
+  animation: kairoz-marquee-scroll 60s linear infinite;
+  align-items: center;
+  white-space: nowrap;
+}
+@keyframes kairoz-marquee-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-100%); }
+}
+
+/* ---------- Reveal (scroll-triggered fade) ---------- */
+.kairoz-reveal {
+  opacity: 1;
+}
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .kairoz-reveal {
+      animation: kairoz-reveal-in linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 30%;
+    }
+    @keyframes kairoz-reveal-in {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+  }
+}
+
+/* ---------- Filmstrip overlay ---------- */
+.kairoz-filmstrip {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 16px 16px;
+}
+[data-theme="light"] .kairoz-filmstrip {
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.04) 1px, transparent 1px);
+}
+
+/* ---------- Mobile bottom tab bar ---------- */
+.kairoz-tabbar-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  height: 56px;
+  padding: 4px 4px 8px;
+  background: var(--bg-base);
+  border-top: 1px solid var(--border-default);
+}
+.kairoz-tabbar-bottom-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  padding: 4px 0;
+  background: transparent;
+  border: 0;
+  color: var(--text-tertiary);
+  font: 500 10px var(--font-ui);
+  cursor: pointer;
+  transition: color 120ms ease;
+}
+.kairoz-tabbar-bottom-item svg { width: 20px; height: 20px; stroke-width: 1.5; }
+.kairoz-tabbar-bottom-item:hover { color: var(--text-secondary); }
+.kairoz-tabbar-bottom-item.is-active { color: var(--text-primary); }
+.kairoz-tabbar-bottom-item.is-active svg { stroke-width: 2; }
+.kairoz-tabbar-bottom-item .kairoz-badge { position: absolute; }
+
+/* ---------- Device frames ---------- */
+.kairoz-device-mobile {
+  display: flex;
+  flex-direction: column;
+  width: 402px;
+  height: 874px;
+  background: var(--bg-base);
+  border-radius: 54px;
+  border: 0.5px solid rgba(255, 255, 255, 0.08);
+  box-shadow:
+    0 0 0 10px #0a0a0a,
+    0 0 0 11px rgba(255, 255, 255, 0.06),
+    0 40px 80px rgba(0, 0, 0, 0.6),
+    0 20px 40px rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+  position: relative;
+}
+.kairoz-device-mobile-inner {
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-base);
+}
+.kairoz-device-mobile-safe-top {
+  height: 54px;
+  flex: none;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 8px;
+  position: relative;
+}
+.kairoz-device-mobile-notch {
+  width: 120px;
+  height: 32px;
+  background: #000;
+  border-radius: 0 0 18px 18px;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.kairoz-device-mobile-safe-bottom {
+  height: 34px;
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.kairoz-device-mobile-indicator {
+  width: 134px;
+  height: 5px;
+  background: var(--text-primary);
+  border-radius: 3px;
+  opacity: 0.95;
+}
+[data-theme="light"] .kairoz-device-mobile {
+  border-color: rgba(0, 0, 0, 0.1);
+  box-shadow:
+    0 0 0 10px #d4d4d4,
+    0 0 0 11px rgba(0, 0, 0, 0.1),
+    0 40px 80px rgba(0, 0, 0, 0.2),
+    0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+.kairoz-device-desktop {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 1100px;
+  background: var(--bg-raised);
+  border: 1px solid var(--border-default);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+}
+.kairoz-device-desktop-chrome {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  background: var(--bg-elevated);
+  border-bottom: 1px solid var(--border-default);
+  flex: none;
+}
+.kairoz-device-desktop-dot {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  display: block;
+}
+.kairoz-device-desktop-dot.is-close { background: #ff5f57; }
+.kairoz-device-desktop-dot.is-min   { background: #febc2e; }
+.kairoz-device-desktop-dot.is-max   { background: #28c840; }
+.kairoz-device-desktop-chrome-left,
+.kairoz-device-desktop-chrome-right {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex: 1 1 0;
+  min-width: 0;
+}
+.kairoz-device-desktop-chrome-right { justify-content: flex-end; }
+.kairoz-device-desktop-url {
+  flex: 0 1 320px;
+  padding: 4px var(--space-3);
+  background: var(--bg-base);
+  border: 1px solid var(--border-default);
+  border-radius: 4px;
+  font: 500 var(--text-xs) var(--font-mono);
+  color: var(--text-tertiary);
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin: 0;
+}
+.kairoz-device-desktop-btn {
+  width: 26px;
+  height: 26px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 0;
+  border-radius: 4px;
+  color: var(--text-tertiary);
+  cursor: pointer;
+  transition: background-color 120ms ease, color 120ms ease;
+}
+.kairoz-device-desktop-btn:hover { background: var(--bg-hover); color: var(--text-primary); }
+.kairoz-device-desktop-inner {
+  flex: 1;
+  background: var(--bg-base);
+  overflow: auto;
+}
+
+.kairoz-device-tablet {
+  display: block;
+  width: 640px;
+  height: 860px;
+  background: var(--bg-base);
+  border-radius: 28px;
+  border: 0.5px solid rgba(255, 255, 255, 0.08);
+  box-shadow:
+    0 0 0 10px #0a0a0a,
+    0 0 0 11px rgba(255, 255, 255, 0.06),
+    0 40px 80px rgba(0, 0, 0, 0.6);
+  overflow: hidden;
+}
+.kairoz-device-tablet-inner {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background: var(--bg-base);
+}
+
+/* ---------- Pulse dot (animated status, no glow) ---------- */
+.kairoz-dot.is-pulse {
+  animation: kairoz-dot-pulse 1.6s ease-in-out infinite;
+}
+@keyframes kairoz-dot-pulse {
+  0%, 100% { opacity: 0.6; }
+  50%      { opacity: 1; }
+}
+
+/* ---------- Display type (responsive hero) ---------- */
+.kairoz-display {
+  font-family: var(--font-display);
+  font-size: clamp(32px, 6vw, 72px);
+  line-height: 1.02;
+  letter-spacing: -0.035em;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
+}
+.kairoz-display-lg {
+  font-size: clamp(44px, 8vw, 112px);
+  line-height: 0.98;
+  letter-spacing: -0.04em;
+  font-weight: 700;
+}
+.kairoz-eyebrow {
+  font-family: var(--font-ui);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  margin: 0;
+}

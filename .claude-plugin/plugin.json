@@ -1,0 +1,20 @@
+{
+  "name": "kairoz",
+  "version": "0.1.0",
+  "description": "Kairoz — a design system for AI and agent interfaces. Dense, AMOLED-black, framework-agnostic. 180+ tokens and 50+ component classes that translate to any stack.",
+  "author": {
+    "name": "sujal7103",
+    "url": "https://github.com/sujal7103"
+  },
+  "repository": "https://github.com/sujal7103/kairoz",
+  "license": "MIT",
+  "keywords": [
+    "design-system",
+    "ui",
+    "css",
+    "tokens",
+    "components",
+    "dark-theme",
+    "amoled"
+  ]
+}
